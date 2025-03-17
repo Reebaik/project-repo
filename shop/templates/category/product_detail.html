@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ jewelry.name }} - Jewelry Shop</title>
+    
+
+    <style>
+        /* General Page Layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            background-image: url("{% static 'images/category_images/ring.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .product-detail {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1000px;
+            height: auto;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .product-detail:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            width: 50%;
+            text-align: left;
+            padding-right: 20px;
+        }
+
+        .product-info h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: #d9534f;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .quantity-selector {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        /* Dropdown styles */
+        .quantity-selector select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f7f7f7;
+            width: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-selector select:hover {
+            border-color: #4CAF50;
+        }
+
+        .quantity-selector label {
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .product-detail img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 40px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .action-buttons button,
+        .action-buttons a {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-buttons button:hover,
+        .action-buttons a:hover {
+            background-color: #45a049;
+        }
+
+        .buy-now-btn {
+            background-color: #d9534f;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #c9302c;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .product-detail {
+                flex-direction: column;
+                padding: 20px;
+                align-items: center;
+            }
+
+            .product-info {
+                width: 100%;
+                text-align: center;
+            }
+
+            .product-detail img {
+                max-width: 80%;
+                margin-top: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="product-detail">
+        <div class="product-info">
+            <h1>{{ jewelry.name }}</h1>
+            <p>{{ jewelry.description }}</p>
+            <p class="price">₹{{ jewelry.price }}</p>
+            <div class="quantity-selector">
+                <form action="{% url 'add_to_cart' jewelry.id %}" method="POST">
+                    {% csrf_token %}
+                    <label for="quantity">Quantity: </label>
+                    <select id="quantity" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <div class="action-buttons">
+                        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                        <a href="{% url 'user_page' %}" class="buy-now-btn">Back To Home</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <img src="{{ jewelry.image.url }}" alt="{{ jewelry.name }}">
+    </div>
+</body>
+</html>

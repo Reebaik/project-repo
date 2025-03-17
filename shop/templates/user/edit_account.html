@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account - Jewelry Store</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f7f3f0;
+            background-image: url("{% static 'images/category_images/necklaces.jpg' %}");
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #3b3b3b;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(to bottom, #fff, #f9f9f9);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #e0e0e0;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #b38b6d;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #6d4c41;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #b38b6d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid #8c6c54;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #8c6c54;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Account</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

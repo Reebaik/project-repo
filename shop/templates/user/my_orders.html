@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="{% static 'user/css/styles.css' %}">
+    <style>
+        /* General styles for the page */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c2c2c;
+            color: #d4af37; /* Gold color */
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        main {
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #2c2c2c;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Styling the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #d4af37; /* Gold */
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: #d4af37; /* Gold */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #c1902c;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Orders</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Order Summary</h2>
+
+            <form method="get" action="">
+                <label for="order-status">Filter by Status:</label>
+                <select name="status" id="order-status" onchange="this.form.submit()">
+                    <option value="" {% if not order_status_filter %}selected{% endif %}>All Orders</option>
+                    <option value="Confirmed" {% if order_status_filter == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                </select>
+            </form>
+            
+
+            {% if my_orders %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Price per Item</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in my_orders %}
+                            {% for item in order.orderitems.all %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ item.jewelry.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>₹{{ item.price_per_item }}</td>
+                                    <td>₹{{ item.total_price }}</td>
+                                    <td>{{ order.order_status }}</td>
+                                    <td>{{ order.created_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>You don't have any orders yet.</p>
+            {% endif %}
+        </section>
+
+
+        <section>
+            <a href="{% url 'user_page' %}" class="btn">Back to Home</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Thank you for shopping with us!</p>
+    </footer>
+</body>
+</html>

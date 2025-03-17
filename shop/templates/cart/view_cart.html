@@ -1,0 +1,188 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Cart</title>
+    <link rel="stylesheet" href="{% static 'user/css/styles.css' %}">
+    <style>
+        /* General Page Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/category_images/necklaces.jpg' %}");
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .cart-container {
+            width: 80%;
+            margin: 50px auto;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table thead {
+            background: #d4af37;
+            color: #fff;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            font-size: 16px;
+        }
+
+        table td {
+            font-size: 14px;
+        }
+
+        table tr:nth-child(even) {
+            background: #f7f7f7;
+        }
+
+        /* Product Image */
+        .product-image {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        /* Action Links */
+        .action-link {
+            color: #d9534f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Total Price Section */
+        .total-price {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #d4af37;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .btn:hover {
+            background: #c1902c;
+        }
+
+        .checkout-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1>Your Cart</h1>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                {% for cart_item in cart_items %}
+                    <tr data-price="{{ cart_item.jewelry.price }}" data-quantity="{{ cart_item.quantity }}">
+                        <td><img src="{{ cart_item.jewelry.image.url }}" alt="{{ cart_item.jewelry.name }}" class="product-image"></td>
+                        <td>{{ cart_item.jewelry.name }}</td>
+                        <td>{{ cart_item.quantity }}</td>
+                        <td>₹{{ cart_item.jewelry.price }}</td>
+                        <td class="item-total">₹{{ cart_item.get_total_price }}</td>
+                        <td>
+                            <a href="{% url 'remove_from_cart' cart_item.id %}" class="action-link">Remove</a> 
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total-price" id="total-price">Total Price: ₹{{ total_price }}</div>
+
+        <div class="checkout-container">
+            <a href="{% url 'checkout' %}" class="btn">Checkout</a>
+            <a href="{% url 'user_page' %}" class="btn back-btn">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Calculate the total price dynamically
+        function calculateTotalPrice() {
+            let total = 0;
+            const cartItems = document.querySelectorAll('#cart-items tr');
+            
+            cartItems.forEach(item => {
+                const price = parseFloat(item.getAttribute('data-price'));
+                const quantity = parseInt(item.getAttribute('data-quantity'));
+                const totalPriceForItem = price * quantity;
+                
+                // Update the total price cell in the table
+                item.querySelector('.item-total').textContent = '₹' + totalPriceForItem.toFixed(2);
+                
+                // Add to the overall total
+                total += totalPriceForItem;
+            });
+
+            // Update the total price display
+            document.getElementById('total-price').textContent = 'Total Price: ₹' + total.toFixed(2);
+        }
+
+        // Call the function to calculate total price on page load
+        window.onload = calculateTotalPrice;
+    </script>
+</body>
+</html>

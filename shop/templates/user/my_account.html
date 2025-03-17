@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Jewelry Store</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f7f3f0;
+            background-image: url("{% static 'images/category_images/necklaces.jpg' %}");
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #3b3b3b;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(to bottom, #fff, #f9f9f9);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #e0e0e0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 32px;
+            color: #b38b6d;
+            font-weight: bold;
+        }
+        .account-info h2 {
+            font-size: 22px;
+            color: #6d4c41;
+            border-bottom: 2px solid #e0c1a0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .info-item {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        .info-item span {
+            font-weight: bold;
+            color: #5a5a5a;
+        }
+        .account-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 25px;
+            background-color: #b38b6d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid #8c6c54;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .button:hover {
+            background-color: #8c6c54;
+            transform: scale(1.05);
+        }
+        .logout-button {
+            background-color: #c94c4c;
+        }
+        .logout-button:hover {
+            background-color: #a83838;
+        }
+        .back-button {
+            background-color: #6c757d;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Account</h1>
+        </div>
+
+        <div class="account-info">
+            <h2>Account Information</h2>
+            <p class="info-item">Name: <span>{{ user.first_name }} {{ user.last_name }}</span></p>
+            <p class="info-item">Email: <span>{{ user.email }}</span></p>
+        </div>
+
+        <div class="account-actions">
+            <a href="{% url 'edit_account' %}" class="button">Edit Account</a>
+            <a href="{% url 'change_password' %}" class="button">Change Password</a>
+            <a href="{% url 'logout' %}" class="button logout-button">Logout</a>
+            <a href="{% url 'user_page' %}" class="button back-button">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

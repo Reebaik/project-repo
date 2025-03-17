@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Jewelry Collection</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #d4af37; /* Golden header */
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation links */
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #fdf5e6; /* Light golden hover */
+        }
+
+        /* Logo on right side */
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-left: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('/static/img/hero.jpg') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 150px 0;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 60px 0;
+        }
+
+        .categories h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .category {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding: 20px;
+            max-width: 300px;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .category img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .category h3 {
+            margin-top: 15px;
+            font-size: 1.4em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Featured Jewelry Section */
+        .featured {
+            background: #f9f9f9;
+            padding: 60px 0;
+        }
+
+        .featured h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .jewelry-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .jewelry-info {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .jewelry-info h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .jewelry-info p {
+            color: #f9a602;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .jewelry-info .btn {
+            text-decoration: none;
+            color: #fff;
+            background: #f9a602;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+
+        .jewelry-info .btn:hover {
+            background: #e68902;
+        }
+
+        /* Additional Styling */
+        .btn:hover {
+            background-color: #e68902;
+        }
+
+        .category img:hover, .jewelry-item img:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 items per row on medium screens */
+            }
+
+            .featured-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 items per row on medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 items per row on smaller screens */
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr; /* 1 item per row on small screens */
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .cta-btn {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-grid {
+                grid-template-columns: 1fr; /* 1 item per row on mobile */
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr; /* 1 item per row on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'home_shop' %}">Shop</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'login' %}">Login/signup</a></li>
+            </ul>
+        </nav>
+        <div class="logo">Jewelry Store</div>
+    </header>
+
+    <!-- Categories Section -->
+    <section id="collections" class="categories">
+        <div class="container">
+            <h2>Our Collections</h2>
+            <div class="category-grid">
+                {% for category in categories %}
+                    <div class="category">
+                        <a href="{% url 'login' %}">
+                            <img src="{{ category.category_image.url|default:'/static/img/placeholder.jpg' }}" alt="{{ category.name }}">
+                            <h3>{{ category.name }}</h3>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Jewelry Section -->
+    <section class="featured">
+        <div class="container">
+            <h2>Featured Jewelry</h2>
+            <div class="featured-grid">
+                {% for jewelry in featured_jewelry %}
+                    <div class="jewelry-item">
+                        <img src="{{ jewelry.image.url|default:'/static/img/placeholder.jpg' }}" alt="{{ jewelry.name }}">
+                        <div class="jewelry-info">
+                            <h3>{{ jewelry.name }}</h3>
+                            <p>${{ jewelry.price }}</p>
+                            <a href="{% url 'login' %}" class="btn">View Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

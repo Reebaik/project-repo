@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Jewelry Store</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #fdf5e6; /* Light golden background */
+            color: #3d3d3d;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #d4af37; /* Golden header */
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation links */
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #fdf5e6; /* Light golden hover */
+        }
+
+        /* Logo on right side */
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-left: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            color: #3d3d3d;
+            padding: 50px 20px;
+            background: #f5e3b3; /* Soft golden background for the section */
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .hero .cta-btn {
+            padding: 10px 20px;
+            background: #d4af37; /* Golden button */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .hero .cta-btn:hover {
+            background: #c1902c;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .about-section h2 {
+            font-size: 30px;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            color: #3d3d3d;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 50px 20px;
+            background-color: #f5e3b3;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 30px;
+            color: #3d3d3d;
+            margin-bottom: 20px;
+        }
+
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            text-align: center;
+            width: 220px;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member h3 {
+            font-size: 20px;
+            color: #3d3d3d;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            color: #757575;
+        }
+
+        /* Footer */
+        footer {
+            background: #3d3d3d;
+            color: #fdf5e6;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        footer .social-links a {
+            color: #d4af37;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer .social-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <!-- Links for logged-in users -->
+                    <li><a href="{% url 'user_page' %}">Home</a></li>
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                    <li><a href="{% url 'my_account' %}">My Account</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'view_cart' %}">Cart</a></li>
+                    <li><a href="{% url 'my_orders' %}">My Orders</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <!-- Links for non-logged-in users -->
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'home_shop' %}">Shop</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'login' %}">Login/signup</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="logo">Jewelry Store</div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to Jewelry Store</h1>
+        <p>We create timeless pieces that reflect your unique style and elegance.</p>
+        <a href="{% url 'home_shop' %}" class="cta-btn">Shop Now</a>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-section">
+        <h2>About Us</h2>
+        <p>At Jewelry Store, we believe that every piece of jewelry should tell a story. Our mission is to craft stunning and unique jewelry pieces that embody elegance, beauty, and craftsmanship. With years of experience, we offer a wide range of meticulously designed jewelry that fits every occasion. Whether it's an engagement ring or a gift for a loved one, we ensure that our creations are as special as the moments they represent.</p>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section">
+        <h2>Meet Me</h2>
+        <div class="team-grid">
+            <!-- Example team members, replace with actual team images and info -->
+            <div class="team-member">
+                <img src="{% static 'images/about/monkey.jpg' %}" alt="Team Member 1">
+                <h3>Riyana</h3>
+                <p>Lead Designer</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Jewelry Store. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
